@@ -2609,3 +2609,95 @@ button {
         max-width: 85%;
     }
 }
+
+/* ================== GLOBAL THEME TYPOGRAPHY ================== */
+body {
+    --text-primary: #ffffff;
+    --text-secondary: #d1d5db;
+    --text-muted: #9ca3af;
+}
+
+body[data-theme="light"] {
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --text-muted: #6b7280;
+}
+
+body :is(
+    h1, h2, h3, h4, h5, h6,
+    #username,
+    .section-header h2,
+    .friend-name,
+    .author-name,
+    .mini-username,
+    .update-author,
+    .comment-author,
+    .modal-title,
+    .post-user-name,
+    .conversation-name,
+    .result-title,
+    .chat-user h3,
+    .notification-text strong,
+    .settings-content h3,
+    .privacy-option h4
+) {
+    color: var(--text-primary) !important;
+}
+
+body :is(
+    p,
+    small,
+    .tagline,
+    .mini-status,
+    .friend-bio,
+    .update-date,
+    .image-caption-preview,
+    .image-post-date,
+    .notification-time,
+    .result-desc,
+    .result-type,
+    .conversation-preview,
+    .conversation-time,
+    .chat-status,
+    .profile-status,
+    .upload-hint,
+    .modal-date,
+    .comment-date,
+    .privacy-option p
+) {
+    color: var(--text-muted) !important;
+}
+
+body :is(
+    #sidebar nav ul li a,
+    .settings-tab,
+    .filter-btn,
+    .view-toggle,
+    .sort-select,
+    .friends-search,
+    .search-box input,
+    .settings-form input,
+    .settings-form textarea,
+    .privacy-select,
+    .add-friend-form input,
+    .add-friend-form select,
+    .chat-input-area input,
+    .comment-input-container input
+) {
+    color: var(--text-secondary) !important;
+}
+
+body :is(
+    .post-button,
+    .add-friend-btn,
+    .save-settings-btn,
+    .new-message-btn,
+    .mark-all-read-btn,
+    .upload-browse-btn,
+    .comment-submit-btn,
+    .friend-count,
+    .notification-count,
+    .message-count
+) {
+    color: #ffffff !important;
+}
