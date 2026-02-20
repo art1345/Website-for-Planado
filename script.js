@@ -1207,7 +1207,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Planado App Initializing...');
 
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js').catch((error) => {
+        navigator.serviceWorker.register('./sw.js', { scope: './' }).catch((error) => {
             console.warn('Service Worker registration failed:', error);
         });
     }
