@@ -2986,6 +2986,7 @@ svg {
     justify-content: center;
     font-size: 18px;
     cursor: pointer;
+    margin: 0;
 }
 
 .mobile-sidebar-overlay {
@@ -2995,6 +2996,11 @@ svg {
 @media (max-width: 768px) {
     .mobile-menu-toggle {
         display: inline-flex;
+        margin-right: 4px;
+    }
+
+    .header-controls {
+        gap: 6px;
     }
 
     .mobile-sidebar-overlay {
