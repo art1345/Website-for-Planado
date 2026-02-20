@@ -33,39 +33,19 @@ const GallerySection = {
     },
     
     loadGallery: function() {
-        // Sample gallery images (in a real app, this would come from your main images array)
-        this.galleryImages = [
-            {
-                id: 1,
-                src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-                caption: 'Beautiful sunset at the beach',
-                likes: 42,
-                comments: 5,
-                date: '2 hours ago',
-                author: 'Alex Johnson',
-                createdAt: Date.now() - (2 * 60 * 60 * 1000)
-            },
-            {
-                id: 2,
-                src: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-                caption: 'City skyline at night',
-                likes: 28,
-                comments: 3,
-                date: 'Yesterday',
-                author: 'Sam Wilson',
-                createdAt: Date.now() - (24 * 60 * 60 * 1000)
-            },
-            {
-                id: 3,
-                src: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-                caption: 'Mountain hiking adventure',
-                likes: 56,
-                comments: 8,
-                date: '2 days ago',
-                author: 'Taylor Swift',
-                createdAt: Date.now() - (2 * 24 * 60 * 60 * 1000)
-            }
-        ];
+        const savedImages = localStorage.getItem('planadoImages');
+        const rawImages = savedImages ? JSON.parse(savedImages) : [];
+
+        this.galleryImages = rawImages.map((image, index) => ({
+            id: image.id || index + 1,
+            src: image.src || '',
+            caption: image.caption || 'Untitled post',
+            likes: Number(image.likes || 0),
+            comments: Array.isArray(image.comments) ? image.comments.length : Number(image.comments || 0),
+            date: image.date || 'Just now',
+            author: image.author?.name || image.author || 'Unknown',
+            createdAt: Number(image.createdAt || 0) || (Date.now() - index)
+        })).filter(image => image.src);
 
         this.renderGallery();
     },
@@ -73,6 +53,16 @@ const GallerySection = {
     renderGallery: function() {
         const galleryContainer = document.getElementById('galleryGrid');
         if (!galleryContainer) return;
+
+        if (this.galleryImages.length === 0) {
+            galleryContainer.classList.remove('list-view');
+            galleryContainer.innerHTML = `
+                <div class="content-section">
+                    <p style="color:#999;">No gallery posts yet. Add a photo from Home to see it here.</p>
+                </div>
+            `;
+            return;
+        }
 
         const sorted = [...this.galleryImages];
         if (this.currentSort === 'newest') {
