@@ -11,6 +11,10 @@ const GallerySection = {
                 <div class="section-header">
                     <h2><i class="fas fa-images"></i> Gallery</h2>
                     <div class="gallery-controls">
+                        <button class="attach-btn" id="attachPhotoBtn">
+                            <i class="fas fa-paperclip"></i> Attach Photo
+                        </button>
+                        <input type="file" id="galleryAttachInput" accept="image/*" multiple hidden>
                         <button class="view-toggle active" data-view="grid">
                             <i class="fas fa-th"></i> Grid
                         </button>
@@ -48,6 +52,24 @@ const GallerySection = {
         })).filter(image => image.src);
 
         this.renderGallery();
+    },
+
+    saveGallery: function() {
+        const raw = this.galleryImages.map(image => ({
+            id: image.id,
+            src: image.src,
+            caption: image.caption,
+            likes: image.likes,
+            comments: [],
+            date: image.date,
+            author: {
+                name: image.author,
+                profilePic: `https://ui-avatars.com/api/?name=${encodeURIComponent(image.author)}&background=4a6fa5&color=fff`
+            },
+            createdAt: image.createdAt,
+            likedBy: []
+        }));
+        localStorage.setItem('planadoImages', JSON.stringify(raw));
     },
 
     renderGallery: function() {
@@ -117,6 +139,61 @@ const GallerySection = {
             this.currentSort = e.target.value;
             this.renderGallery();
         });
+
+        const attachBtn = document.getElementById('attachPhotoBtn');
+        const attachInput = document.getElementById('galleryAttachInput');
+
+        if (attachBtn && attachInput) {
+            attachBtn.addEventListener('click', () => {
+                attachInput.click();
+            });
+
+            attachInput.addEventListener('change', (e) => {
+                const files = Array.from(e.target.files || []);
+                if (files.length === 0) return;
+
+                const savedUser = localStorage.getItem('planadoUser');
+                const user = savedUser ? JSON.parse(savedUser) : { name: 'You' };
+
+                let processed = 0;
+                files.forEach((file) => {
+                    if (!file.type.startsWith('image/')) {
+                        processed += 1;
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = (evt) => {
+                        this.galleryImages.unshift({
+                            id: Date.now() + processed,
+                            src: evt.target.result,
+                            caption: file.name,
+                            likes: 0,
+                            comments: 0,
+                            date: 'Just now',
+                            author: user.name || 'You',
+                            createdAt: Date.now()
+                        });
+
+                        processed += 1;
+                        if (processed === files.length) {
+                            this.saveGallery();
+                            this.renderGallery();
+                            attachInput.value = '';
+                        }
+                    };
+                    reader.onerror = () => {
+                        processed += 1;
+                        if (processed === files.length) {
+                            this.saveGallery();
+                            this.renderGallery();
+                            attachInput.value = '';
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                });
+            });
+        }
         
         // Image click (for modal)
         document.addEventListener('click', (e) => {
