@@ -1,5 +1,9 @@
 // Gallery Section
 const GallerySection = {
+    galleryImages: [],
+    currentView: 'grid',
+    currentSort: 'newest',
+
     load: function() {
         const container = document.getElementById('content-container');
         container.innerHTML = `
@@ -29,11 +33,8 @@ const GallerySection = {
     },
     
     loadGallery: function() {
-        // Use images from main app or load specific gallery data
-        const galleryContainer = document.getElementById('galleryGrid');
-        
         // Sample gallery images (in a real app, this would come from your main images array)
-        const galleryImages = [
+        this.galleryImages = [
             {
                 id: 1,
                 src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
@@ -41,7 +42,8 @@ const GallerySection = {
                 likes: 42,
                 comments: 5,
                 date: '2 hours ago',
-                author: 'Alex Johnson'
+                author: 'Alex Johnson',
+                createdAt: Date.now() - (2 * 60 * 60 * 1000)
             },
             {
                 id: 2,
@@ -50,7 +52,8 @@ const GallerySection = {
                 likes: 28,
                 comments: 3,
                 date: 'Yesterday',
-                author: 'Sam Wilson'
+                author: 'Sam Wilson',
+                createdAt: Date.now() - (24 * 60 * 60 * 1000)
             },
             {
                 id: 3,
@@ -59,11 +62,30 @@ const GallerySection = {
                 likes: 56,
                 comments: 8,
                 date: '2 days ago',
-                author: 'Taylor Swift'
+                author: 'Taylor Swift',
+                createdAt: Date.now() - (2 * 24 * 60 * 60 * 1000)
             }
         ];
-        
-        galleryContainer.innerHTML = galleryImages.map(image => `
+
+        this.renderGallery();
+    },
+
+    renderGallery: function() {
+        const galleryContainer = document.getElementById('galleryGrid');
+        if (!galleryContainer) return;
+
+        const sorted = [...this.galleryImages];
+        if (this.currentSort === 'newest') {
+            sorted.sort((a, b) => b.createdAt - a.createdAt);
+        } else if (this.currentSort === 'oldest') {
+            sorted.sort((a, b) => a.createdAt - b.createdAt);
+        } else if (this.currentSort === 'popular') {
+            sorted.sort((a, b) => b.likes - a.likes);
+        }
+
+        galleryContainer.classList.toggle('list-view', this.currentView === 'list');
+
+        galleryContainer.innerHTML = sorted.map(image => `
             <div class="image-post" data-id="${image.id}">
                 <img src="${image.src}" alt="${image.caption}">
                 <div class="image-post-content">
@@ -92,25 +114,18 @@ const GallerySection = {
     setupEventListeners: function() {
         // View toggle
         document.querySelectorAll('.view-toggle').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', () => {
                 document.querySelectorAll('.view-toggle').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                
-                const gallery = document.getElementById('galleryGrid');
-                if (this.dataset.view === 'list') {
-                    gallery.style.gridTemplateColumns = '1fr';
-                    gallery.classList.add('list-view');
-                } else {
-                    gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(250px, 1fr))';
-                    gallery.classList.remove('list-view');
-                }
+                btn.classList.add('active');
+                this.currentView = btn.dataset.view === 'list' ? 'list' : 'grid';
+                this.renderGallery();
             });
         });
         
         // Sort select
-        document.getElementById('sortSelect').addEventListener('change', function() {
-            // In a real app, this would sort the gallery
-            console.log('Sort by:', this.value);
+        document.getElementById('sortSelect').addEventListener('change', (e) => {
+            this.currentSort = e.target.value;
+            this.renderGallery();
         });
         
         // Image click (for modal)
