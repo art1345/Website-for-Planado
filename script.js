@@ -1206,6 +1206,12 @@ function setupEventListeners() {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Planado App Initializing...');
 
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch((error) => {
+            console.warn('Service Worker registration failed:', error);
+        });
+    }
+
     // Apply persisted appearance setting first
     applySavedThemePreference();
     setupMobileSidebarToggle();

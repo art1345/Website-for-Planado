@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch((error) => {
+            console.warn('Service Worker registration failed:', error);
+        });
+    }
+
     const ensureHeader = () => {
         if (document.querySelector('header')) return;
 
