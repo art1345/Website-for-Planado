@@ -1,0 +1,452 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planado - Your Friends' Space</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <!-- Logo Section -->
+            <div class="logo-section">
+                <div class="logo">
+                    <span class="logo-icon"><i class="fas fa-users"></i></span>
+                    <h1>Planado</h1>
+                </div>
+                <p class="tagline">Your Friends' Space</p>
+            </div>
+            
+            <!-- Header Controls -->
+            <div class="header-controls">
+                <!-- User Profile -->
+                <div id="user-profile" class="user-profile">
+                    <div class="profile-info">
+                        <span id="username">Alex Johnson</span>
+                        <span class="profile-status">Online</span>
+                    </div>
+                    <img src="https://ui-avatars.com/api/?name=Alex+Johnson&background=4a6fa5&color=fff" 
+                         alt="Profile" id="profile-pic" class="profile-picture">
+                </div>
+                
+                <!-- Post Button - Updated -->
+                <button id="post-btn" class="post-button">
+                    <i class="fas fa-plus"></i>
+                    <span>New Post</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <aside id="sidebar">
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a></li>
+                <li><a href="friends.html">
+                    <i class="fas fa-users"></i>
+                    <span>Friends</span>
+                    <span class="friend-count">12</span>
+                </a></li>
+                <li><a href="search.html">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </a></li>
+                <li><a href="notifications.html">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                    <span class="notification-count">3</span>
+                </a></li>
+                <li><a href="messages.html">
+                    <i class="fas fa-envelope"></i>
+                    <span>Messages</span>
+                    <span class="message-count">5</span>
+                </a></li>
+                <li><a href="gallery.html">
+                    <i class="fas fa-images"></i>
+                    <span>Gallery</span>
+                </a></li>
+                <li><a href="settings.html">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a></li>
+            </ul>
+            
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <div class="user-mini-profile">
+                    <img src="https://ui-avatars.com/api/?name=Alex+Johnson&background=4a6fa5&color=fff" 
+                         alt="Profile" class="mini-profile-pic">
+                    <div>
+                        <span class="mini-username">Alex Johnson</span>
+                        <span class="mini-status">Premium Member</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <main id="main-content">
+        <!-- Personal Updates Section -->
+        <section id="updates" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-newspaper"></i> Personal Updates</h2>
+                <button class="refresh-btn">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            <div id="updates-feed" class="updates-feed"></div>
+        </section>
+
+        <!-- Picture Upload Section -->
+        <section id="pictures" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-images"></i> Picture Gallery</h2>
+                <div class="gallery-controls">
+                    <button class="view-toggle active">
+                        <i class="fas fa-th"></i> Grid
+                    </button>
+                    <button class="view-toggle">
+                        <i class="fas fa-list"></i> List
+                    </button>
+                    <button class="sort-btn">
+                        <i class="fas fa-sort-amount-down"></i> Sort
+                    </button>
+                </div>
+            </div>
+            <div id="gallery" class="gallery"></div>
+        </section>
+    </main>
+
+      <div id="content-container">
+        <!-- Sections will be dynamically loaded here -->
+    </div>
+
+    <!-- Modal for expanded image view -->
+    <div id="image-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <div class="modal-author">
+                    <img src="" alt="Author" id="modal-author-pic" class="author-picture">
+                    <div>
+                        <h3 id="modal-author-name"></h3>
+                        <p id="modal-date" class="modal-date"></p>
+                    </div>
+                </div>
+            </div>
+            <img id="modal-image" src="" alt="Expanded Image" class="modal-main-image">
+            <div id="image-info" class="image-info">
+                <p id="modal-caption" class="image-caption"></p>
+            </div>
+            <div id="like-section" class="like-section">
+                <div class="like-stats">
+                    <span class="likes-count">
+                        <i class="fas fa-heart"></i>
+                        <span id="like-count">0</span> likes
+                    </span>
+                    <span class="comments-count">
+                        <i class="fas fa-comment"></i>
+                        <span id="comment-count">0</span> comments
+                    </span>
+                </div>
+                <div class="action-buttons">
+                    <button id="like-btn" class="action-btn like-btn">
+                        <i class="far fa-heart"></i>
+                        <span>Like</span>
+                    </button>
+                    <button class="action-btn comment-btn">
+                        <i class="far fa-comment"></i>
+                        <span>Comment</span>
+                    </button>
+                    <button class="action-btn share-btn">
+                        <i class="far fa-share-square"></i>
+                        <span>Share</span>
+                    </button>
+                </div>
+                <div id="liked-by" class="liked-by">
+                    <small>Liked by: <span id="liked-by-list"></span></small>
+                </div>
+            </div>
+            <div id="comments-section" class="comments-section">
+                <h4><i class="fas fa-comments"></i> Comments</h4>
+                <div id="comments-list" class="comments-list"></div>
+                <form id="comment-form" class="comment-form">
+                    <div class="comment-input-wrapper">
+                        <img src="https://ui-avatars.com/api/?name=Alex+Johnson&background=4a6fa5&color=fff" 
+                             alt="Your Profile" class="comment-profile-pic">
+                        <div class="comment-input-container">
+                            <input type="text" id="comment-input" placeholder="Write a comment..." required>
+                            <div class="comment-actions">
+                                <button type="button" class="comment-action-btn">
+                                    <i class="far fa-smile"></i>
+                                </button>
+                                <button type="button" class="comment-action-btn">
+                                    <i class="fas fa-camera"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="comment-submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for posting updates and pictures - UPDATED VERSION -->
+    <div id="post-modal" class="modal">
+        <div class="modal-content post-modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Create Post</h2>
+                <span id="post-close" class="close">&times;</span>
+            </div>
+            
+            <!-- User Profile -->
+            <div class="post-user-info">
+                <img src="https://ui-avatars.com/api/?name=Alex+Johnson&background=4a6fa5&color=fff" 
+                     alt="Your Profile" class="post-user-pic">
+                <div class="post-user-details">
+                    <div class="post-user-name">Alex Johnson</div>
+                    <select class="post-privacy">
+                        <option value="public">
+                            <i class="fas fa-globe"></i> Public
+                        </option>
+                        <option value="friends">
+                            <i class="fas fa-user-friends"></i> Friends
+                        </option>
+                        <option value="private">
+                            <i class="fas fa-lock"></i> Only Me
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="post-tabs">
+                <button class="post-tab active" data-tab="update">
+                    <i class="fas fa-edit"></i>
+                    <span>Update</span>
+                </button>
+                <button class="post-tab" data-tab="photo">
+                    <i class="fas fa-camera"></i>
+                    <span>Photo</span>
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="post-tab-content">
+                <!-- Update Form -->
+                <form id="modal-update-form" class="post-form active" data-form="update">
+                    <div class="form-group">
+                        <textarea id="modal-update-text" placeholder="What's on your mind, Alex?" 
+                                  class="post-textarea" rows="4"></textarea>
+                        <div class="textarea-footer">
+                            <span class="char-count">0/500</span>
+                        </div>
+                    </div>
+                    
+                    <div class="post-features">
+                        <div class="features-header">
+                            <span>Add to your post</span>
+                        </div>
+                        <div class="features-grid">
+                            <button type="button" class="feature-btn" data-feature="photo">
+                                <i class="fas fa-images"></i>
+                                <span>Photo/Video</span>
+                            </button>
+                            <button type="button" class="feature-btn" data-feature="tag">
+                                <i class="fas fa-user-tag"></i>
+                                <span>Tag People</span>
+                            </button>
+                            <button type="button" class="feature-btn" data-feature="feeling">
+                                <i class="fas fa-smile"></i>
+                                <span>Feeling</span>
+                            </button>
+                            <button type="button" class="feature-btn" data-feature="location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Location</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <button type="submit" class="post-submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Post</span>
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Photo Upload Form - UPDATED WITH NEW CODE -->
+                <form id="modal-upload-form" class="post-form" data-form="photo">
+                    <div class="photo-upload-section">
+                        <div class="form-group">
+                            <label for="modal-image-upload">
+                                <i class="fas fa-images"></i> Select Images
+                            </label>
+                            <div id="upload-container" class="upload-container">
+                                <div class="upload-icon">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <p class="upload-text">Drag & drop images here or</p>
+                                <button type="button" class="upload-browse-btn">
+                                    <i class="fas fa-folder-open"></i> Browse Files
+                                </button>
+                                <input type="file" id="modal-image-upload" multiple accept="image/*" style="display: none;">
+                                <p class="upload-hint">Supports JPG, PNG, GIF up to 10MB</p>
+                            </div>
+                            <div id="image-previews" class="image-previews"></div>
+                        </div>
+                        
+                        <div class="caption-section">
+                            <div class="form-group">
+                                <label for="modal-image-caption">
+                                    <i class="fas fa-edit"></i> Add a caption
+                                </label>
+                                <textarea id="modal-image-caption" placeholder="Add a caption for your photos..." 
+                                          class="caption-textarea" rows="3"></textarea>
+                                <div class="caption-footer">
+                                    <span class="caption-count">0/300</span>
+                                </div>
+                            </div>
+                            
+                            <div class="photo-options">
+                                <button type="button" class="photo-option-btn">
+                                    <i class="fas fa-user-tag"></i> Tag People
+                                </button>
+                                <button type="button" class="photo-option-btn">
+                                    <i class="fas fa-map-marker-alt"></i> Add Location
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <button type="submit" class="post-submit-btn">
+                            <i class="fas fa-upload"></i>
+                            <span>Upload</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profile-modal" class="modal">
+        <div class="modal-content profile-modal-content">
+            <span class="close" id="profile-close">&times;</span>
+            <h2 class="modal-title">Your Profile</h2>
+            
+            <div class="profile-header">
+                <div class="profile-cover">
+                    <button class="change-cover-btn">
+                        <i class="fas fa-camera"></i> Change Cover
+                    </button>
+                </div>
+                <div class="profile-main-info">
+                    <div class="profile-picture-container">
+                        <img src="https://ui-avatars.com/api/?name=Alex+Johnson&background=4a6fa5&color=fff&size=150" 
+                             alt="Profile" id="modal-profile-pic" class="profile-main-pic">
+                        <button id="change-profile-pic" class="change-pic-btn">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <div class="profile-name-status">
+                        <h2 id="modal-profile-name">Alex Johnson</h2>
+                        <span class="profile-status-badge">
+                            <i class="fas fa-circle"></i> Online
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <form id="profile-form" class="profile-form">
+                <div class="form-section">
+                    <h3><i class="fas fa-user"></i> Personal Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="profile-name">
+                                <i class="fas fa-signature"></i> Full Name
+                            </label>
+                            <input type="text" id="profile-name" value="Alex Johnson" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-username">
+                                <i class="fas fa-at"></i> Username
+                            </label>
+                            <input type="text" id="profile-username" value="@alexj" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="profile-bio">
+                            <i class="fas fa-edit"></i> Bio
+                        </label>
+                        <textarea id="profile-bio" placeholder="Tell us about yourself..." 
+                                  class="bio-textarea">Digital enthusiast and nature lover. Exploring the world one photo at a time.</textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="profile-location">
+                                <i class="fas fa-map-marker-alt"></i> Location
+                            </label>
+                            <input type="text" id="profile-location" value="New York, USA">
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-website">
+                                <i class="fas fa-link"></i> Website
+                            </label>
+                            <input type="url" id="profile-website" value="https://alexjohnson.example.com">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3><i class="fas fa-sliders-h"></i> Preferences</h3>
+                    <div class="preference-options">
+                        <label class="preference-option">
+                            <input type="checkbox" checked>
+                            <span>Email notifications for new comments</span>
+                        </label>
+                        <label class="preference-option">
+                            <input type="checkbox" checked>
+                            <span>Show online status</span>
+                        </label>
+                        <label class="preference-option">
+                            <input type="checkbox">
+                            <span>Make profile public</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="save-profile-btn">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <button type="button" class="logout-btn" id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Log Out
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script src="sections/friends.js"></script>
+    <script src="sections/search.js"></script>
+    <script src="sections/notifications.js"></script>
+    <script src="sections/messages.js"></script>
+    <script src="sections/gallery.js"></script>
+    <script src="sections/settings.js"></script>
+</body>
+</html>
