@@ -2146,7 +2146,7 @@ button {
 
 .mark-all-read-btn {
     background: rgba(255, 255, 255, 0.05);
-    color: #ccc;
+    color: var(--text-secondary);
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 13px;
@@ -2158,12 +2158,17 @@ button {
 
 .notifications-filter {
     background: rgba(255, 255, 255, 0.05);
-    color: #fff;
+    color: var(--text-secondary);
     border: 1px solid #333;
     border-radius: 20px;
     padding: 8px 16px;
     font-size: 13px;
     outline: none;
+}
+
+.notifications-filter option {
+    background: #1a1a1a;
+    color: var(--text-primary);
 }
 
 .notification-item {
@@ -2206,18 +2211,34 @@ button {
 
 .notification-text {
     font-size: 14px;
-    color: #fff;
+    color: var(--text-primary);
     margin-bottom: 5px;
 }
 
 .notification-time {
     font-size: 12px;
-    color: #999;
+    color: var(--text-muted);
 }
 
 .notification-actions {
     display: flex;
     gap: 10px;
+}
+
+body[data-theme="light"] .notifications-filter {
+    background: #f7f9fc;
+    border-color: #cfd6e3;
+    color: var(--text-secondary);
+}
+
+body[data-theme="light"] .notifications-filter option {
+    background: #ffffff;
+    color: var(--text-primary);
+}
+
+body[data-theme="light"] .notification-item.unread {
+    background: #e8efff;
+    border-color: #9ab4f5;
 }
 
 /* ================== MESSAGES SECTION ================== */
