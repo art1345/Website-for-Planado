@@ -342,6 +342,47 @@ function applySavedThemePreference() {
     document.body.setAttribute('data-theme', resolvedTheme);
 }
 
+function setupMobileSidebarToggle() {
+    const headerControls = document.querySelector('.header-controls');
+    const sidebar = document.getElementById('sidebar');
+    if (!headerControls || !sidebar) return;
+
+    let toggleBtn = document.getElementById('mobileMenuToggle');
+    if (!toggleBtn) {
+        toggleBtn = document.createElement('button');
+        toggleBtn.id = 'mobileMenuToggle';
+        toggleBtn.className = 'mobile-menu-toggle';
+        toggleBtn.type = 'button';
+        toggleBtn.setAttribute('aria-label', 'Open menu');
+        toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        headerControls.insertBefore(toggleBtn, headerControls.firstChild);
+    }
+
+    let overlay = document.getElementById('mobileSidebarOverlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'mobileSidebarOverlay';
+        overlay.className = 'mobile-sidebar-overlay';
+        document.body.appendChild(overlay);
+    }
+
+    const closeMenu = () => document.body.classList.remove('sidebar-open');
+    const toggleMenu = () => document.body.classList.toggle('sidebar-open');
+
+    toggleBtn.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    document.querySelectorAll('#sidebar nav a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            closeMenu();
+        }
+    });
+}
+
 // Load data from localStorage
 function loadData() {
     const savedImages = localStorage.getItem('planadoImages');
@@ -1167,6 +1208,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Apply persisted appearance setting first
     applySavedThemePreference();
+    setupMobileSidebarToggle();
     
     // Load user data from localStorage
     loadData();

@@ -2945,7 +2945,10 @@ svg {
     .add-friend-btn,
     .new-message-btn,
     .mark-all-read-btn {
-        width: 100%;
+        width: auto;
+        min-height: 40px;
+        padding: 10px 14px;
+        font-size: 13px;
         justify-content: center;
     }
 
@@ -2968,4 +2971,64 @@ svg {
         height: 42px;
         flex-shrink: 0;
     }
+}
+
+/* Mobile navigation */
+.mobile-menu-toggle {
+    display: none;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid #333;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.mobile-sidebar-overlay {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: inline-flex;
+    }
+
+    .mobile-sidebar-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1200;
+    }
+
+    body.sidebar-open .mobile-sidebar-overlay {
+        display: block;
+    }
+
+    #sidebar {
+        display: block;
+        top: 0;
+        left: 0;
+        width: min(82vw, 320px);
+        height: 100vh;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        z-index: 1300;
+        padding-top: 90px;
+        box-shadow: 6px 0 24px rgba(0, 0, 0, 0.35);
+    }
+
+    body.sidebar-open #sidebar {
+        transform: translateX(0);
+    }
+}
+
+body[data-theme="light"] .mobile-menu-toggle {
+    background: #f7f9fc;
+    border-color: #cfd6e3;
+    color: #1f2937;
 }
