@@ -2776,3 +2776,196 @@ body :is(
 ) {
     color: #ffffff !important;
 }
+
+/* ================== GLOBAL RESPONSIVE FIXES ================== */
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img,
+video,
+canvas,
+svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.section-header,
+.gallery-controls,
+.friends-controls,
+.notifications-controls,
+.messages-controls {
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.gallery-controls > *,
+.friends-controls > *,
+.notifications-controls > * {
+    max-width: 100%;
+}
+
+.search-box input,
+.friends-search,
+.privacy-select,
+.sort-select,
+.notifications-filter,
+.settings-form input,
+.settings-form textarea,
+.add-friend-form input,
+.add-friend-form select,
+.chat-input-area input {
+    min-width: 0;
+}
+
+@media (max-width: 1200px) {
+    .friends-list {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+
+    .messages-container {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .conversations-list {
+        max-height: 340px;
+        overflow-y: auto;
+    }
+
+    .settings-container {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-sidebar {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 8px;
+        padding-bottom: 6px;
+    }
+}
+
+@media (max-width: 992px) {
+    header {
+        height: auto;
+        position: relative;
+    }
+
+    .header-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 8px 0;
+    }
+
+    .header-controls {
+        justify-content: space-between;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .user-profile {
+        min-width: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-section {
+        padding: 16px;
+    }
+
+    .section-header {
+        align-items: stretch;
+    }
+
+    .section-header h2 {
+        font-size: 18px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+    }
+
+    .image-post-content {
+        padding: 12px;
+    }
+
+    .friends-list {
+        grid-template-columns: 1fr;
+    }
+
+    .friend-card {
+        padding: 14px;
+    }
+
+    .add-friend-form {
+        grid-template-columns: 1fr;
+    }
+
+    .notifications-controls,
+    .friends-controls,
+    .gallery-controls {
+        width: 100%;
+    }
+
+    .notifications-filter,
+    .sort-select,
+    .friends-search {
+        width: 100%;
+    }
+
+    .search-box {
+        gap: 10px;
+        padding: 0 12px;
+    }
+
+    .modal-content,
+    .post-modal-content,
+    .profile-modal-content {
+        width: 96%;
+        margin: 12px auto;
+        padding: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo h1 {
+        font-size: 18px;
+    }
+
+    .post-button,
+    .add-friend-btn,
+    .new-message-btn,
+    .mark-all-read-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .friend-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .friend-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .chat-input-area {
+        gap: 8px;
+    }
+
+    .chat-input-area button {
+        width: 42px;
+        height: 42px;
+        flex-shrink: 0;
+    }
+}
