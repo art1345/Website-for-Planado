@@ -1427,7 +1427,7 @@ button {
     
     .header-controls {
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: justify;
         gap: 5px;
     }
     
