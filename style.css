@@ -56,12 +56,19 @@ body[data-theme="light"] .view-toggle,
 body[data-theme="light"] .sort-btn,
 body[data-theme="light"] .sort-select,
 body[data-theme="light"] .friends-search,
+body[data-theme="light"] .add-friend-form input,
+body[data-theme="light"] .add-friend-form select,
 body[data-theme="light"] .privacy-select,
 body[data-theme="light"] .settings-form input,
 body[data-theme="light"] .settings-form textarea {
     background: #f7f9fc;
     border-color: #cfd6e3;
     color: #1f2937;
+}
+
+body[data-theme="light"] .add-friend-panel {
+    background: #ffffff;
+    border-color: #d9dee7;
 }
 
 body[data-theme="light"] #sidebar nav ul li a:hover,
@@ -1884,6 +1891,38 @@ button {
     gap: 8px;
 }
 
+.add-friend-panel {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.add-friend-form {
+    display: grid;
+    grid-template-columns: 1.2fr 1.5fr auto auto auto;
+    gap: 10px;
+    align-items: center;
+}
+
+.add-friend-form input,
+.add-friend-form select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: #fff;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.add-friend-form input:focus,
+.add-friend-form select:focus {
+    outline: none;
+    border-color: #4a6fa5;
+}
+
 .friends-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -2547,6 +2586,10 @@ button {
     .friends-controls {
         flex-direction: column;
         align-items: stretch;
+    }
+
+    .add-friend-form {
+        grid-template-columns: 1fr;
     }
     
     .friends-search {
