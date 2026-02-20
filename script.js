@@ -309,30 +309,30 @@ function updateActiveNav(section) {
 // =================== SIDEBAR CONNECTION ===================
 function setupSidebarNavigation() {
     console.log("Setting up sidebar navigation...");
-    
-    // Get all sidebar links
+
     const sidebarLinks = document.querySelectorAll('#sidebar nav ul li a');
-    
+
     sidebarLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Get the section name from href (remove #)
-            const section = this.getAttribute('href').substring(1);
-            console.log(`Clicked on: ${section}`);
-            
-            // Load the corresponding section
-            if (section === 'home') {
-                showHomeSection();
-            } else {
-                showSection(section);
+            const href = this.getAttribute('href') || '';
+
+            // Keep SPA behavior for hash links, allow normal redirects for .html links
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const section = href.substring(1);
+                console.log(`Clicked on: ${section}`);
+
+                if (section === 'home') {
+                    showHomeSection();
+                } else {
+                    showSection(section);
+                }
             }
         });
     });
 }
 
 // =================== CORE APP FUNCTIONS ===================
-
 // Load data from localStorage
 function loadData() {
     const savedImages = localStorage.getItem('planadoImages');
@@ -1185,3 +1185,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('Planado App Initialized!');
 });
+
+
+
