@@ -333,6 +333,15 @@ function setupSidebarNavigation() {
 }
 
 // =================== CORE APP FUNCTIONS ===================
+function applySavedThemePreference() {
+    const savedPreference = localStorage.getItem('planadoThemePreference') || 'dark';
+    const resolvedTheme = savedPreference === 'system'
+        ? (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
+        : savedPreference;
+
+    document.body.setAttribute('data-theme', resolvedTheme);
+}
+
 // Load data from localStorage
 function loadData() {
     const savedImages = localStorage.getItem('planadoImages');
@@ -1155,6 +1164,9 @@ function setupEventListeners() {
 // Initialize the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Planado App Initializing...');
+
+    // Apply persisted appearance setting first
+    applySavedThemePreference();
     
     // Load user data from localStorage
     loadData();

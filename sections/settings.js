@@ -1,5 +1,7 @@
 // Settings Section
 const SettingsSection = {
+    systemThemeMedia: null,
+
     load: function() {
         const container = document.getElementById('content-container');
         container.innerHTML = `
@@ -98,10 +100,10 @@ const SettingsSection = {
                                 <div class="privacy-option">
                                     <h4>Theme</h4>
                                     <p>Choose your preferred theme</p>
-                                    <select class="privacy-select">
-                                        <option>Dark (Default)</option>
-                                        <option>Light</option>
-                                        <option>System</option>
+                                    <select class="privacy-select" id="appearanceThemeSelect">
+                                        <option value="dark">Dark</option>
+                                        <option value="light">Light</option>
+                                        <option value="system">System</option>
                                     </select>
                                 </div>
                             </div>
@@ -132,7 +134,44 @@ const SettingsSection = {
             </section>
         `;
         
+        this.initializeAppearance();
         this.setupEventListeners();
+    },
+
+    getSavedThemePreference: function() {
+        return localStorage.getItem('planadoThemePreference') || 'dark';
+    },
+
+    resolveTheme: function(preference) {
+        if (preference === 'system') {
+            return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        return preference === 'light' ? 'light' : 'dark';
+    },
+
+    applyTheme: function(preference) {
+        const theme = this.resolveTheme(preference);
+        document.body.setAttribute('data-theme', theme);
+    },
+
+    initializeAppearance: function() {
+        const themeSelect = document.getElementById('appearanceThemeSelect');
+        if (!themeSelect) return;
+
+        const savedPreference = this.getSavedThemePreference();
+        themeSelect.value = savedPreference;
+        this.applyTheme(savedPreference);
+
+        if (this.systemThemeMedia) {
+            this.systemThemeMedia.onchange = null;
+        }
+
+        this.systemThemeMedia = window.matchMedia('(prefers-color-scheme: light)');
+        this.systemThemeMedia.onchange = () => {
+            if (this.getSavedThemePreference() === 'system') {
+                this.applyTheme('system');
+            }
+        };
     },
     
     setupEventListeners: function() {
@@ -163,6 +202,15 @@ const SettingsSection = {
             e.preventDefault();
             alert('Password updated successfully!');
         });
+
+        const themeSelect = document.getElementById('appearanceThemeSelect');
+        if (themeSelect) {
+            themeSelect.addEventListener('change', (e) => {
+                const preference = e.target.value;
+                localStorage.setItem('planadoThemePreference', preference);
+                this.applyTheme(preference);
+            });
+        }
         
         // Toggle switches
         document.querySelectorAll('.switch input').forEach(switchInput => {
