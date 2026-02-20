@@ -2636,12 +2636,20 @@ body {
     --text-primary: #ffffff;
     --text-secondary: #d1d5db;
     --text-muted: #9ca3af;
+    --input-bg: rgba(255, 255, 255, 0.05);
+    --input-border: #333;
+    --icon-muted: #9ca3af;
+    --icon-accent-bg: rgba(74, 111, 165, 0.2);
 }
 
 body[data-theme="light"] {
     --text-primary: #111827;
     --text-secondary: #374151;
     --text-muted: #6b7280;
+    --input-bg: #f7f9fc;
+    --input-border: #cfd6e3;
+    --icon-muted: #5f6b7a;
+    --icon-accent-bg: rgba(74, 111, 165, 0.14);
 }
 
 body :is(
@@ -2706,6 +2714,52 @@ body :is(
     .comment-input-container input
 ) {
     color: var(--text-secondary) !important;
+}
+
+body :is(
+    .friends-search,
+    .search-box,
+    .sort-select,
+    .privacy-select,
+    .notifications-filter,
+    .settings-form input,
+    .settings-form textarea,
+    .add-friend-form input,
+    .add-friend-form select,
+    .chat-input-area input,
+    .comment-input-container input
+) {
+    background: var(--input-bg) !important;
+    border-color: var(--input-border) !important;
+}
+
+body :is(
+    input::placeholder,
+    textarea::placeholder,
+    .friends-search::placeholder,
+    .search-box input::placeholder,
+    .chat-input-area input::placeholder,
+    .comment-input-container input::placeholder
+) {
+    color: var(--text-muted) !important;
+}
+
+body :is(
+    .search-box i,
+    .comment-action-btn i,
+    .friend-action-btn i,
+    .filter-btn i,
+    .view-toggle i,
+    .sort-btn i,
+    .settings-tab i,
+    .chat-status i,
+    .notifications-controls i
+) {
+    color: var(--icon-muted) !important;
+}
+
+body .notification-icon {
+    background: var(--icon-accent-bg) !important;
 }
 
 body :is(
