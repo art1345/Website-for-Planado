@@ -149,7 +149,7 @@ header {
 .header-controls {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 
 /* User Profile */
@@ -2868,7 +2868,7 @@ svg {
     .header-controls {
         justify-content: space-between;
         width: 100%;
-        gap: 10px;
+        gap: 8px;
     }
 
     .user-profile {
