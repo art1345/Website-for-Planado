@@ -1,4 +1,4 @@
-// JavaScript for Planado
+﻿// JavaScript for Planado
 
 // Gallery functionality
 let images = [];
@@ -801,7 +801,7 @@ function initializeImageUpload() {
         const removeBtn = document.createElement('button');
         removeBtn.type = 'button';
         removeBtn.className = 'remove-btn';
-        removeBtn.innerHTML = '×';
+        removeBtn.innerHTML = 'Ã—';
         removeBtn.title = 'Remove image';
         
         // Remove the preview item when clicked
@@ -1180,7 +1180,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(initializeImageUpload, 500);
     
     // Set active nav item
-    const homeLink = document.querySelector('#sidebar a[href="#home"]');
+    const homeLink = document.querySelector('#sidebar a[href="index.html"], #sidebar a[href="#home"]');
     if (homeLink) homeLink.classList.add('active');
     
     console.log('Planado App Initialized!');
